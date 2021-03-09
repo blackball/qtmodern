@@ -25,4 +25,4 @@ setup(name='qtmodern',
       package_data={
           'qtmodern': ['resources/*']
       },
-      install_requires=['qtpy>=1.3.1'])
+      install_requires=['PySide6'])

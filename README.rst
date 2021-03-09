@@ -2,6 +2,14 @@
 qtmodern
 ========
 
+NOTE: Ported this to PySide6 and tested. Just install this by:
+
+    python3 setup.py install --user
+
+Test it by running the example.
+
+
+
 .. image:: https://travis-ci.org/gmarull/qtmodern.svg?branch=master
     :target: https://travis-ci.org/gmarull/qtmodern
     :alt: Travis build

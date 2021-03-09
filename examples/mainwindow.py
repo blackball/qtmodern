@@ -3,9 +3,11 @@ from time import sleep
 from os.path import join, dirname, abspath, basename, isdir
 from os import listdir
 
-from qtpy import uic
-from qtpy.QtCore import Slot, QThread, Signal
-from qtpy.QtWidgets import QApplication, QMainWindow, QMessageBox, QTreeWidgetItem
+from PySide6.QtUiTools import QUiLoader
+from PySide6.QtCore import Slot, QThread, Signal, QFile
+from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QTreeWidgetItem
+
+from mainwindow_ui import *
 
 import qtmodern.styles
 import qtmodern.windows
@@ -28,11 +30,11 @@ class ProgressThread(QThread):
             sleep(0.5)
 
 
-class MainWindow(QMainWindow):
+class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
-        QMainWindow.__init__(self)
-
-        uic.loadUi(_UI, self)  # Load the ui into self
+        super(MainWindow, self).__init__()
+        self.setupUi(self)
+        self.assignWidgets()
 
         self.tooltiplabel.setToolTip("This is a tool tip that shows a tip about the tool")
 
@@ -64,11 +66,9 @@ class MainWindow(QMainWindow):
     def darkTheme(self):
         qtmodern.styles.dark(QApplication.instance())
 
-    @Slot()
-    def on_pushButton_clicked(self):
-        self.close()
+    def assignWidgets(self):
+        self.pushButton.clicked.connect(self.close)
 
-    @Slot()
     def closeEvent(self, event):
         reply = QMessageBox.question(self, 'Exit', 'Do you want to exit?')
 
